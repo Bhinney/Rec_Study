@@ -25,7 +25,7 @@ public class KakaoPayService {
 
 	private final OrdRepository ordRepository;
 	private final BoardRepository boardRepository;
-	@Value("${spring.security.oauth2.client.registration.kakao.adminKey}")
+	@Value("${spring.kakao.adminKey}")
 	private String adminKey;
 
 	/* 결제 준비 */

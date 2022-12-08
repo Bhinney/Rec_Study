@@ -12,9 +12,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            adminKey: ${KAKAO_ADMIN_KEY}
+  kakao:
+    adminKey: ${KAKAO_ADMIN_KEY}
