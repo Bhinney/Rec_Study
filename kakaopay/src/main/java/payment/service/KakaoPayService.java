@@ -3,7 +3,6 @@ package payment.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -30,7 +29,8 @@ public class KakaoPayService {
 	private String adminKey;
 
 	/* 결제 준비 */
-	public ReadyResponse payReady(Ord ord) {
+	public ReadyResponse payReady(long ordId) {
+		Ord ord = findVerifiedOrd(ordId);
 
 		/* 카카오가 요구한 결제 요청 */
 		MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
@@ -52,6 +52,7 @@ public class KakaoPayService {
 		String url = "https://kapi.kakao.com/v1/payment/ready";
 
 		ReadyResponse readyResponse = template.postForObject(url, requestEntity, ReadyResponse.class);
+		log.info("결제 준비 응답 객체 확인 : " + readyResponse);
 
 		ord.setTid(readyResponse.getTid());
 		ordRepository.save(ord);
@@ -80,7 +81,7 @@ public class KakaoPayService {
 		String url = "https://kapi.kakao.com/v1/payment/approve";
 
 		ApproveResponse approveResponse = template.postForObject(url, requestEntity, ApproveResponse.class);
-		log.info("결재승인 응답객체: " + approveResponse);
+		log.info("결제 승인 응답 객체 확인: " + approveResponse);
 
 		/* 주문 상태 변경 */
 		findOrd.setStatus(Ord.OrdStatus.PAY_COMPLETE);
