@@ -1,4 +1,4 @@
-package payment.entity;
+package payment.help.entity;
 
 import java.time.LocalDate;
 

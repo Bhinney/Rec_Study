@@ -1,4 +1,4 @@
-package payment.entity;
+package payment.help.entity;
 
 import java.util.ArrayList;
 import java.util.List;
