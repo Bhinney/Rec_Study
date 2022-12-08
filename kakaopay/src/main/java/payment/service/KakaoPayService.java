@@ -40,11 +40,11 @@ public class KakaoPayService {
 		param.add("item_name", ord.getProduct().getBoard().getTitle());
 		param.add("quantity", String.valueOf(ord.getQuantity())); /* 개수는 상수형 */
 		param.add("total_amount", String.valueOf(ord.getTotalPrice())); /* 상품 총액 */
-
 		param.add("tax_free_amount", "0"); /* 상품 비과세 금액 */
-		param.add("approval_url", "http://localhost:8080/order/pay/completed"); /* 결제 승인 url */
-		param.add("cancel_url", "http://localhost:8080/order/pay/cancel"); /* 결제 취소 url */
-		param.add("fail_url", "http://localhost:8080/order/pay/fail"); /* 결제 실패 url */
+
+		param.add("approval_url", "http://localhost:8080/order/pay/completed" + ord.getOrdId()); /* 결제 승인 url */
+		param.add("cancel_url", "http://localhost:8080/order/pay/cancel" + ord.getOrdId()); /* 결제 취소 url */
+		param.add("fail_url", "http://localhost:8080/order/pay/fail" + ord.getOrdId()); /* 결제 실패 url */
 
 		HttpEntity<MultiValueMap<String,String>> requestEntity = new HttpEntity<>(param, this.getHeaders());
 
