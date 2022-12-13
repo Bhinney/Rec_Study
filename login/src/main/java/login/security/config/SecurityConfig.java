@@ -1,4 +1,4 @@
-package study.security.config;
+package login.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +11,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
+import login.security.jwt.JwtProvider;
 
 @Configuration
 @EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
-	// private final SecurityProvider securityProvider;
+	private final JwtProvider jwtProvider;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -35,8 +36,8 @@ public class SecurityConfig {
 			.and()
 			.formLogin().disable()
 			.httpBasic().disable()
-			// .apply(new JwtSecurityConfig(securityProvider))
-			// .and()
+			.apply(new JwtSecurityConfig(jwtProvider))
+			.and()
 			.authorizeHttpRequests(authorize -> authorize
 
 				/* 메인 페이지는 모두 접근이 가능해야한다. */

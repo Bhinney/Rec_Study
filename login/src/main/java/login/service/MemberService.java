@@ -1,4 +1,4 @@
-package study.service;
+package login.service;
 
 import java.util.Optional;
 
@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import study.entity.Member;
-import study.entity.ProviderType;
-import study.repository.MemberRepository;
+import login.entity.Member;
+import login.entity.ProviderType;
+import login.repository.MemberRepository;
 
 @Service
 @Slf4j

@@ -1,4 +1,4 @@
-package study.entity;
+package login.entity;
 
 import java.util.List;
 

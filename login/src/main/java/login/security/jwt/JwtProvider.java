@@ -1,4 +1,4 @@
-package study.security.jwt;
+package login.security.jwt;
 
 import java.security.Key;
 import java.util.Date;
@@ -23,10 +23,10 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import study.entity.Member;
-import study.repository.MemberRepository;
-import study.security.dto.TokenDto;
-import study.security.util.CustomAuthorityUtils;
+import login.entity.Member;
+import login.repository.MemberRepository;
+import login.security.dto.TokenDto;
+import login.security.util.CustomAuthorityUtils;
 
 @Slf4j
 @Component

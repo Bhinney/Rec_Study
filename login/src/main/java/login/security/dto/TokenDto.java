@@ -1,4 +1,4 @@
-package study.security.dto;
+package login.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
