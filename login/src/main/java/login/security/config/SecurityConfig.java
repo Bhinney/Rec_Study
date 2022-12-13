@@ -10,6 +10,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import login.security.hadler.MemberAccessDeniedHandler;
+import login.security.hadler.MemberAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import login.security.jwt.JwtProvider;
 
@@ -51,10 +53,10 @@ public class SecurityConfig {
 
 				/* 접근 제한 확인을 위해 나머지는 접근할 수 없는 권한으로 설정 */
 				.anyRequest().authenticated()
-			);
-			// .exceptionHandling()
-			// .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
-			// .accessDeniedHandler(new MemberAccessDeniedHandler());
+			)
+			.exceptionHandling()
+			.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+			.accessDeniedHandler(new MemberAccessDeniedHandler());
 
 		return http.build();
 	}

@@ -15,7 +15,6 @@ import lombok.Setter;
 
 @Getter
 @Entity
-@Setter
 @NoArgsConstructor
 public class Seller {
 	@Id
@@ -28,12 +27,12 @@ public class Seller {
 	@Column
 	private String imageUrl;
 
-	/* 🌸 판매자 - 회원 일대일 연관 관계 : 회원 참조 */
+	/* 💚 판매자 - 회원 일대일 연관 관계 : 회원 참조 */
 	@OneToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
 
-	/* 🌸판매자 - 회원 연관 관계 편의 메서드 */
+	/* 💚 판매자 - 회원 연관 관계 편의 메서드 */
 	public void setMember(Member member) {
 		this.member = member;
 

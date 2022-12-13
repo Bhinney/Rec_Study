@@ -60,8 +60,6 @@ public class Member {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> roles;
 
-
-
 	/* 💜 소비자 - 회원 일대일 연관 관계 : 회원 참조*/
 	@OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Client client;
@@ -75,11 +73,11 @@ public class Member {
 		}
 	}
 
-	/* 🌸판매자 - 회원 일대일 연관 관계 : 회원 참조 */
+	/* 💚 판매자 - 회원 일대일 연관 관계 : 회원 참조 */
 	@OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Seller seller;
 
-	/* 🌸판매자 - 회원 연관 관계 편의 메서드 */
+	/* 💚 판매자 - 회원 연관 관계 편의 메서드 */
 	public void setSeller(Seller seller) {
 		this.seller = seller;
 
