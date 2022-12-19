@@ -3,6 +3,8 @@ package login.security.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -52,7 +54,7 @@ public class SecurityConfig {
 				.antMatchers(HttpMethod.POST, "/login/**").permitAll() /* 소셜 로그인을 위해 */
 
 				/* 접근 제한 확인을 위해 나머지는 접근할 수 없는 권한으로 설정 */
-				.anyRequest().authenticated()
+				.anyRequest().permitAll()
 			)
 			.exceptionHandling()
 			.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
