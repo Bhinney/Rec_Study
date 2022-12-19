@@ -96,4 +96,11 @@ public class Member {
 		this.roles = roles;
 		this.socialId = socialId;
 	}
+
+	public void setCreateMember(String password, String role, List<String> roles, ProviderType providerType) {
+		this.password = password;
+		this.role = role;
+		this.roles = roles;
+		this.providerType = providerType;
+	}
 }

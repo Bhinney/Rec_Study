@@ -62,7 +62,7 @@ public class MemberDto {
 	@Getter
 	@Builder
 	@AllArgsConstructor
-	public static class SelleResponseDto{
+	public static class SellerResponseDto{
 		private long memberId;
 		private long sellerId;
 		private String email;

@@ -71,6 +71,7 @@ public class JwtProvider{
 			.accessToken(accessToken)
 			.accessTokenExpiresIn(accessTokenExpiration.getTime())
 			.refreshToken(refreshToken)
+			.refreshTokenExpiresIn(refreshTokenExpiration.getTime())
 			.build();
 	}
 
@@ -88,11 +89,7 @@ public class JwtProvider{
 				.setExpiration(expiration)
 				.compact();
 
-		/* 배포 용 */
 		return accessToken;
-
-		/* 테스트 용*/
-		// return BEARER_TYPE + accessToken;
 	}
 
 	/* 🦊 Refresh Token 생성 */

@@ -31,5 +31,10 @@ spring:
             tokenUri: https://kauth.kakao.com/oauth/token
             userInfoUri: https://kapi.kakao.com/v2/user/me
             userNameAttribute: id
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
 jwt:
   secret-key: ${JWT_SECRET_KEY}
