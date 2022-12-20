@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -67,6 +68,7 @@ public class KakaoService {
 	}
 
 	/* 카카오 로그인 */
+	@Transactional
 	public Member saveMember(String accessToken) {
 
 		/* 사용자 정보 받아오기 */
