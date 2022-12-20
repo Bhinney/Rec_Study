@@ -53,7 +53,6 @@ public class SecurityConfig {
 				.antMatchers(HttpMethod.GET, "/login/**").permitAll() /* 소셜 로그인을 위해 */
 				.antMatchers(HttpMethod.POST, "/login/**").permitAll() /* 소셜 로그인을 위해 */
 
-				/* 접근 제한 확인을 위해 나머지는 접근할 수 없는 권한으로 설정 */
 				.anyRequest().permitAll()
 			)
 			.exceptionHandling()
