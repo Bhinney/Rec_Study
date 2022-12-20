@@ -38,6 +38,7 @@ public class KakaoService {
 
 	/* code 로 kakao 의 엑세스 토큰 발급 받기 */
 	public KakaoToken getAccessToken(String code) {
+
 		/* RequestParam */
 		MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
 		param.add("grant_type", "authorization_code");
@@ -62,7 +63,8 @@ public class KakaoService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer " + token);
 
-		KakaoProfile kakaoProfile = template.postForObject(userInfoUri, headers, KakaoProfile.class);
+		HttpEntity<MultiValueMap<String, String> > requestEntity = new HttpEntity<>(null, headers);
+		KakaoProfile kakaoProfile = template.postForObject(userInfoUri, requestEntity, KakaoProfile.class);
 
 		return kakaoProfile;
 	}

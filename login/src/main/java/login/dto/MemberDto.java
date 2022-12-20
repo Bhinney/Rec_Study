@@ -73,4 +73,17 @@ public class MemberDto {
 		private String introduce;
 		private String imageUrl;
 	}
+
+	@Getter
+	@Builder
+	@AllArgsConstructor
+	public static class SocialrResponseDto{
+		private long memberId;
+		private String email;
+		private String name;
+		private String phone;
+		private String address;
+		private String role;
+		private String accessToken;
+	}
 }

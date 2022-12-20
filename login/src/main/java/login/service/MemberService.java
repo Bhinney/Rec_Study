@@ -120,6 +120,19 @@ public class MemberService {
 		redisTemplate.delete("RefreshToken:" + authentication.getName());
 	}
 
+	/* 카카오 로그인 */
+	public TokenDto kakaoLogin(LoginRequestDto requestDto) {
+
+		TokenDto tokenDto = jwtProvider.generatedTokenDto(requestDto.getEmail());
+
+		/* Refresh Token 저장 */
+		redisTemplate.opsForValue()
+			.set("RefreshToken:" + requestDto.getEmail(), tokenDto.getRefreshToken(),
+				tokenDto.getRefreshTokenExpiresIn() - new Date().getTime(), TimeUnit.MICROSECONDS);
+
+		return tokenDto;
+	}
+
 	/* 존재하는 이메일인지 확인 */
 	public void verifyEmailExist(String email) {
 		Optional<Member> optionalMember = memberRepository.findByEmail(email);
