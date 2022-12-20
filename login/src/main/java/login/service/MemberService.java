@@ -133,8 +133,7 @@ public class MemberService {
 
 	/* 소셜 로그인 권한 수정 */
 	public Member updateSocial(String role, long memberId) {
-		Member member = memberRepository.findById(memberId)
-			.orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+		Member member = findVerifiedMember(memberId);
 		checkSocialRole(member.getRole());
 
 		if (role.equalsIgnoreCase("CLIENT")) {
