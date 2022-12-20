@@ -2,18 +2,22 @@ package login.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import login.dto.MemberDto;
+import login.dto.SocialPatchDto;
 import login.entity.Member;
 import login.kakaologin.dto.KakaoToken;
 import login.kakaologin.service.KakaoService;
@@ -105,6 +109,28 @@ public class MemberController {
 				httpHeaders, HttpStatus.OK);
 		}
 
+		/* 로그인이 실패할 경우, 문제가 존재하는 것 */
+		throw new RuntimeException("로그인에 실패하였습니다.");
+	}
+
+	/* 소셜 로그인 유저 권한 수정 */
+	@PatchMapping("/social/{member_id}")
+	public ResponseEntity patchSocial(@PathVariable("member_id") @Positive long memberId,
+		@RequestBody SocialPatchDto requestBody) {
+
+		Member member = memberService.updateSocial(requestBody.getRole(), memberId);
+		LoginRequestDto request = new LoginRequestDto(member.getEmail(), member.getPassword());
+
+		/* 여기서 토큰 재발급 */
+		TokenDto tokenDto = memberService.kakaoLogin(request);
+		HttpHeaders httpHeaders = setHeader(tokenDto.getAccessToken());
+
+		/* 역할에 따라 응답 바디가 다르므로, 나누어 주었다.*/
+		if(member.getRole().equals("SELLER")) {
+			return new ResponseEntity<>(mapper.memberToSellerResponseDto(member), httpHeaders, HttpStatus.OK);
+		} else if (member.getRole().equals("CLIENT")) {
+			return new ResponseEntity<>(mapper.memberToClientResponseDto(member), httpHeaders, HttpStatus.OK);
+		}
 		/* 로그인이 실패할 경우, 문제가 존재하는 것 */
 		throw new RuntimeException("로그인에 실패하였습니다.");
 	}

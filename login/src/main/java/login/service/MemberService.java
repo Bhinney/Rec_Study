@@ -133,6 +133,35 @@ public class MemberService {
 		return tokenDto;
 	}
 
+	/* 소셜 로그인 권한 수정 */
+	public Member updateSocial(String role, long memberId) {
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new RuntimeException("회원을 찾을 수 없습니다."));
+		checkSocialRole(member.getRole());
+
+		if (role.equalsIgnoreCase("CLIENT")) {
+			member.setCreateMember(
+				"소셜 로그인 사용자, 권한 수정 완료",
+				"CLIENT",
+				List.of("CLIENT"),
+				ProviderType.KAKAO
+			);
+			member.setClient(new Client());
+		} else if (role.equalsIgnoreCase("SELLER")) {
+			member.setCreateMember(
+				"소셜 로그인 사용자, 권한 수정 완료",
+				"SELLER",
+				List.of("SELLER"),
+				ProviderType.KAKAO
+			);
+			member.setSeller(new Seller());
+		} else {
+			throw new RuntimeException("수정할 수 없습니다.");
+		}
+
+		return member;
+	}
+
 	/* 존재하는 이메일인지 확인 */
 	public void verifyEmailExist(String email) {
 		Optional<Member> optionalMember = memberRepository.findByEmail(email);
@@ -184,6 +213,13 @@ public class MemberService {
 	private void checkLocalMember(Member member) {
 		if (member.getProviderType() != ProviderType.LOCAL) {
 			throw new RuntimeException("소셜 회원입니다.");
+		}
+	}
+
+	/* social 역할 확인 */
+	private void checkSocialRole(String role) {
+		if (!role.equalsIgnoreCase("SOCIAL")) {
+			throw new RuntimeException("소셜 권한 사용자가 아닙니다.");
 		}
 	}
 }
