@@ -65,13 +65,13 @@ public interface MemberMapper {
 		return response;
 	}
 
-	default MemberDto.SocialrResponseDto memberToSocialResponseDto(Member member, String token) {
+	default MemberDto.SocialResponseDto memberToSocialResponseDto(Member member, String token) {
 		if (member == null && token == null) {
 			return null;
 		}
 
-		MemberDto.SocialrResponseDto response =
-			MemberDto.SocialrResponseDto.builder()
+		MemberDto.SocialResponseDto response =
+			MemberDto.SocialResponseDto.builder()
 				.memberId(member.getMemberId())
 				.email(member.getEmail())
 				.name(member.getName())

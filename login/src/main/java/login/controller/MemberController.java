@@ -40,8 +40,8 @@ public class MemberController {
 	/* 회원 가입 */
 	@PostMapping("/members/signup")
 	public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) throws Exception {
+		memberService.correctPassword(requestBody.getPassword(), requestBody.getPasswordCheck());
 		Member createMember = memberService.createMember(mapper.memberPostDtoToMember(requestBody));
-
 
 		/* 로그인 시도를 위한 LoginRequestDto 생성 */
 		LoginRequestDto loginRequestDto = new LoginRequestDto(createMember.getEmail(), requestBody.getPassword());
