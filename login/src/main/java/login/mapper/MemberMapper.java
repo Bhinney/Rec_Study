@@ -64,4 +64,23 @@ public interface MemberMapper {
 
 		return response;
 	}
+
+	default MemberDto.SocialrResponseDto memberToSocialResponseDto(Member member, String token) {
+		if (member == null && token == null) {
+			return null;
+		}
+
+		MemberDto.SocialrResponseDto response =
+			MemberDto.SocialrResponseDto.builder()
+				.memberId(member.getMemberId())
+				.email(member.getEmail())
+				.name(member.getName())
+				.phone(member.getPhone())
+				.address(member.getAddress())
+				.role(member.getRole())
+				.accessToken(token)
+				.build();
+
+		return response;
+	}
 }

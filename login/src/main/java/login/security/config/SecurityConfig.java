@@ -53,6 +53,9 @@ public class SecurityConfig {
 				.antMatchers(HttpMethod.GET, "/login/**").permitAll() /* 소셜 로그인을 위해 */
 				.antMatchers(HttpMethod.POST, "/login/**").permitAll() /* 소셜 로그인을 위해 */
 
+				/* 소셜 수정 권한 접근 */
+				.antMatchers(HttpMethod.PATCH, "/social/**").hasRole("SOCIAL")
+
 				.anyRequest().permitAll()
 			)
 			.exceptionHandling()
