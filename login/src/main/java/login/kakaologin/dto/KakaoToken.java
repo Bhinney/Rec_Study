@@ -1,8 +1,10 @@
 package login.kakaologin.dto;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class KakaoToken {
 	private String access_token;
 	private String refresh_token;

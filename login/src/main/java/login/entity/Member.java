@@ -86,15 +86,12 @@ public class Member {
 		}
 	}
 
-	public Member(String name, String email, String password,
-		ProviderType providerType, String role, List<String> roles, String socialId) {
+	public Member(String name, String email, String socialId, String phone, String address) {
 		this.name = name;
 		this.email = email;
-		this.password = password;
-		this.providerType = providerType;
-		this.role = role;
-		this.roles = roles;
 		this.socialId = socialId;
+		this.phone = phone;
+		this.address = address;
 	}
 
 	public void setCreateMember(String password, String role, List<String> roles, ProviderType providerType) {
