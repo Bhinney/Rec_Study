@@ -2,7 +2,6 @@ package login.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import login.dto.MemberDto;
 import login.entity.Client;
 import login.entity.Seller;
 import login.security.dto.LoginRequestDto;
@@ -75,7 +73,7 @@ public class MemberService {
 		/* 존재하는 회원인지 확인 */
 		Member member = findVerifiedMemberByEmail(loginRequestDto.getEmail());
 
-		/* 비밀번호가 일치하는지 확인 */
+		/* 비밀번호가 맞는지 확인 */
 		verifyPassword(member, loginRequestDto.getPassword());
 
 		/* 프로바이더 확인 */

@@ -77,7 +77,7 @@ public class MemberDto {
 	@Getter
 	@Builder
 	@AllArgsConstructor
-	public static class SocialrResponseDto{
+	public static class SocialResponseDto{
 		private long memberId;
 		private String email;
 		private String name;
