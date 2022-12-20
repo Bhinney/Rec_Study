@@ -18,13 +18,6 @@ public class LoginRequestDto {
 	private String email;
 	private String password;
 
-	public Member toMember(PasswordEncoder passwordEncoder) {
-		return Member.builder()
-			.email(email)
-			.password(passwordEncoder.encode(password))
-			.build();
-	}
-
 	public UsernamePasswordAuthenticationToken toAuthentication() {
 		return new UsernamePasswordAuthenticationToken(email, password);
 	}
