@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.study.boardProject.dto.BoardDto;
 import org.study.boardProject.entity.Board;
 import org.study.boardProject.repository.BoardRepository;
 
