@@ -14,7 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable {
@@ -27,4 +26,8 @@ public class Auditable {
 	/* 수정 시간 */
 	@LastModifiedDate
 	private LocalDate modifiedAt;
+
+	public void setModifiedAt(LocalDate modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
 }
