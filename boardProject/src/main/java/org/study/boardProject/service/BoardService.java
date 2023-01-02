@@ -19,57 +19,30 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 
 	/* 게시판 등록 */
-	public BoardDto.Response create(BoardDto.Post post) {
-		Board board = Board.builder()
-			.nickName(post.getNickName())
-			.title(post.getTitle())
-			.content(post.getContent())
-			.build();
-
+	public Board create(Board board) {
 		boardRepository.save(board);
 
-		return BoardDto.Response.builder()
-			.boardId(board.getBoardId())
-			.nickName(board.getNickName())
-			.title(board.getTitle())
-			.content(board.getContent())
-			.createdAt(board.getCreatedAt())
-			.modifiedAt(board.getModifiedAt())
-			.build();
+		return board;
 	}
 
 	/* 게시판 수정 */
-	public BoardDto.Response update(BoardDto.Patch patch, long boardId) {
-		Board board = findVerifiedBoard(boardId);
+	public Board update(Board board, long boardId) {
+		Board findBoard = findVerifiedBoard(boardId);
 
-		Optional.ofNullable(patch.getNickName()).ifPresent(board::setNickName);
-		Optional.ofNullable(patch.getTitle()).ifPresent(board::setTitle);
-		Optional.ofNullable(patch.getContent()).ifPresent(board::setContent);
+		Optional.ofNullable(board.getNickName()).ifPresent(findBoard::setNickName);
+		Optional.ofNullable(board.getTitle()).ifPresent(findBoard::setTitle);
+		Optional.ofNullable(board.getContent()).ifPresent(findBoard::setContent);
 
-		boardRepository.save(board);
+		boardRepository.save(findBoard);
 
-		return BoardDto.Response.builder()
-			.boardId(board.getBoardId())
-			.nickName(board.getNickName())
-			.title(board.getTitle())
-			.content(board.getContent())
-			.createdAt(board.getCreatedAt())
-			.modifiedAt(board.getModifiedAt())
-			.build();
+		return findBoard;
 	}
 
 	/* 특정 게시판 조회 */
-	public BoardDto.Response findBoard(long boardId) {
+	public Board findBoard(long boardId) {
 		Board board = findVerifiedBoard(boardId);
 
-		return BoardDto.Response.builder()
-			.boardId(board.getBoardId())
-			.nickName(board.getNickName())
-			.title(board.getTitle())
-			.content(board.getContent())
-			.createdAt(board.getCreatedAt())
-			.modifiedAt(board.getModifiedAt())
-			.build();
+		return board;
 	}
 
 	/* 전체 게시판 조회 */
