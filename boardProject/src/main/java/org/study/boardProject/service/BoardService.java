@@ -28,9 +28,9 @@ public class BoardService {
 	public Board update(Board board, long boardId) {
 		Board findBoard = findVerifiedBoard(boardId);
 
-		Optional.ofNullable(board.getNickName()).ifPresent(findBoard::setNickName);
-		Optional.ofNullable(board.getTitle()).ifPresent(findBoard::setTitle);
-		Optional.ofNullable(board.getContent()).ifPresent(findBoard::setContent);
+		Optional.ofNullable(board.getNickName()).ifPresent(findBoard::changeNickName);
+		Optional.ofNullable(board.getTitle()).ifPresent(findBoard::changeTitle);
+		Optional.ofNullable(board.getContent()).ifPresent(findBoard::changeContent);
 
 		boardRepository.save(findBoard);
 

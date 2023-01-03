@@ -33,15 +33,15 @@ public class Board extends Auditable {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 
-	public void setNickName(String nickName) {
+	public void changeNickName(String nickName) {
 		this.nickName = nickName;
 	}
 
-	public void setTitle(String title) {
+	public void changeTitle(String title) {
 		this.title = title;
 	}
 
-	public void setContent(String content) {
+	public void changeContent(String content) {
 		this.content = content;
 	}
 }
