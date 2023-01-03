@@ -40,7 +40,7 @@ public class BoardController {
 	}
 
 	/* 게시판 수정 */
-	@PatchMapping("/{board_id}")
+	@PatchMapping("/{boardId}")
 	public ResponseEntity patch(@PathVariable long boardId, @RequestBody BoardDto.Patch requestBody) {
 		Board board = boardService.update(mapper.boardPatchDtoToBoard(requestBody), boardId);
 
@@ -48,7 +48,7 @@ public class BoardController {
 	}
 
 	/* 특정 게시판 조회 */
-	@GetMapping("/{board_id}")
+	@GetMapping("/{boardId}")
 	public ResponseEntity getBoard(@PathVariable long boardId) {
 		Board board = boardService.findBoard(boardId);
 
@@ -65,7 +65,7 @@ public class BoardController {
 	}
 
 	/* 게시판 삭제 */
-	@DeleteMapping("/{board_id}")
+	@DeleteMapping("/{boardId}")
 	public ResponseEntity delete(@PathVariable long boardId) {
 		String message = boardService.delete(boardId);
 
