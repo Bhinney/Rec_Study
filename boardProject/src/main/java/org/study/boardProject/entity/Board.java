@@ -8,18 +8,14 @@ import javax.persistence.Id;
 
 import org.study.boardProject.global.Auditable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Builder
 @Getter
 @Entity
-@NoArgsConstructor//(access = AccessLevel.PROTECTED) /* 테스트를 위해 잠시 주석 처리 */
-@AllArgsConstructor
 public class Board extends Auditable {
+
+	public Board(){} /* 테스트를 위해 public */
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +39,21 @@ public class Board extends Auditable {
 	}
 
 	public void changeContent(String content) {
+		this.content = content;
+	}
+
+	@Builder
+	public Board(long boardId, String nickName, String title, String content) {
+		this.boardId = boardId;
+		this.nickName = nickName;
+		this.title = title;
+		this.content = content;
+	}
+
+	@Builder
+	public Board(String nickName, String title, String content) {
+		this.nickName = nickName;
+		this.title = title;
 		this.content = content;
 	}
 }
