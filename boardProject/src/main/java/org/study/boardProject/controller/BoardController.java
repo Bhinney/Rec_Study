@@ -33,7 +33,7 @@ public class BoardController {
 
 	/* 게시판 등록 */
 	@PostMapping
-	public ResponseEntity post(@RequestBody BoardDto.Post requestBody) {
+	public ResponseEntity<BoardDto.Response> post(@RequestBody BoardDto.Post requestBody) {
 		Board board = boardService.create(mapper.boardPostDtoToBoard(requestBody));
 
 		return new ResponseEntity<>(mapper.boardToBoardResponseDto(board), HttpStatus.CREATED);
@@ -41,7 +41,7 @@ public class BoardController {
 
 	/* 게시판 수정 */
 	@PatchMapping("/{boardId}")
-	public ResponseEntity patch(@PathVariable long boardId, @RequestBody BoardDto.Patch requestBody) {
+	public ResponseEntity<BoardDto.Response> patch(@PathVariable long boardId, @RequestBody BoardDto.Patch requestBody) {
 		Board board = boardService.update(mapper.boardPatchDtoToBoard(requestBody), boardId);
 
 		return ResponseEntity.ok(mapper.boardToBoardResponseDto(board));
@@ -49,7 +49,7 @@ public class BoardController {
 
 	/* 특정 게시판 조회 */
 	@GetMapping("/{boardId}")
-	public ResponseEntity getBoard(@PathVariable long boardId) {
+	public ResponseEntity<BoardDto.Response> getBoard(@PathVariable long boardId) {
 		Board board = boardService.findBoard(boardId);
 
 		return ResponseEntity.ok(mapper.boardToBoardResponseDto(board));
@@ -57,7 +57,7 @@ public class BoardController {
 
 	/* 전체 게시판 조회 */
 	@GetMapping
-	public ResponseEntity getBoardList(@RequestParam int page, @RequestParam int size) {
+	public ResponseEntity<List<BoardDto.Response>> getBoardList(@RequestParam int page, @RequestParam int size) {
 		Page<Board> boardPage = boardService.findBoardList(page - 1, size);
 		List<Board> boardList = boardPage.getContent();
 
@@ -66,7 +66,7 @@ public class BoardController {
 
 	/* 게시판 삭제 */
 	@DeleteMapping("/{boardId}")
-	public ResponseEntity delete(@PathVariable long boardId) {
+	public ResponseEntity<String> delete(@PathVariable long boardId) {
 		String message = boardService.delete(boardId);
 
 		return ResponseEntity.ok(message);
