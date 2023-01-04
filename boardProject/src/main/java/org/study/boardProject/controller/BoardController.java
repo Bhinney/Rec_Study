@@ -25,11 +25,15 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/boards")
-@RequiredArgsConstructor
 public class BoardController {
 
 	private final BoardService boardService;
 	private final BoardMapper mapper;
+
+	public BoardController(BoardService boardService, BoardMapper mapper) {
+		this.boardService = boardService;
+		this.mapper = mapper;
+	}
 
 	/* 게시판 등록 */
 	@PostMapping
