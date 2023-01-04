@@ -12,10 +12,13 @@ import org.study.boardProject.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class BoardService {
 
 	private final BoardRepository boardRepository;
+
+	public BoardService(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
+	}
 
 	/* 게시판 등록 */
 	public Board create(Board board) {
