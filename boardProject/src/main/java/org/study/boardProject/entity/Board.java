@@ -49,11 +49,4 @@ public class Board extends Auditable {
 		this.title = title;
 		this.content = content;
 	}
-
-	@Builder
-	public Board(String nickName, String title, String content) {
-		this.nickName = nickName;
-		this.title = title;
-		this.content = content;
-	}
 }
