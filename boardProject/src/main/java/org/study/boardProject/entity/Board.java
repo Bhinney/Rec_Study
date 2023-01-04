@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor//(access = AccessLevel.PROTECTED) /* 테스트를 위해 잠시 주석 처리 */
 @AllArgsConstructor
 public class Board extends Auditable {
 

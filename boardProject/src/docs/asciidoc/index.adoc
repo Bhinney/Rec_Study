@@ -1,0 +1,91 @@
+= 게시판 어플리케이션
+
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Bhinney <https://github.com/Bhinney>
+
+v1.0.0, 2023.01.04
+
+***
+
+ 이 문서는 스프링 공부를 위해 작성된 게시판 CRUD의 문서입니다.
+
+***
+== BoardController
+==== 게시글 등록
+.curl-request
+include::{snippets}/post-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-board/http-request.adoc[]
+
+.request-fields
+include::{snippets}/post-board/request-fields.adoc[]
+
+.http-response
+include::{snippets}/post-board/http-response.adoc[]
+
+.response-fields
+include::{snippets}/post-board/response-fields.adoc[]
+
+=== 게시글 수정
+.curl-request
+include::{snippets}/patch-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/patch-board/http-request.adoc[]
+
+.request-fields
+include::{snippets}/patch-board/request-fields.adoc[]
+
+.http-response
+include::{snippets}/patch-board/http-response.adoc[]
+
+.response-fields
+include::{snippets}/patch-board/response-fields.adoc[]
+
+
+=== 특정 게시글 조회
+
+.curl-request
+include::{snippets}/get-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-board/http-request.adoc[]
+
+.http-response
+include::{snippets}/get-board/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-board/response-fields.adoc[]
+
+
+=== 게시글 리스트 조회
+.curl-request
+include::{snippets}/get-boardList/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-boardList/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-boardList/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-boardList/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-boardList/response-fields.adoc[]
+
+=== 게시글 삭제
+.curl-request
+include::{snippets}/delete-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-board/http-request.adoc[]
+
+.http-response
+include::{snippets}/delete-board/http-response.adoc[]
