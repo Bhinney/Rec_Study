@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.study.boardProject.global.Auditable;
 
@@ -28,6 +30,17 @@ public class Comment extends Auditable {
 	@NotNull
 	private String content;
 
+	@ManyToOne
+	@JoinColumn(name = "boardId")
+	private Board board;
+
+	public void setBoard (Board board) {
+		this.board = board;
+
+		if (!board.getCommentList().contains(this)) {
+			board.getCommentList().add(this);
+		}
+	}
 	@Builder
 	public Comment(long commentId, String nickName, String content) {
 		this.commentId = commentId;
