@@ -25,7 +25,7 @@ public class Comment extends Auditable {
 	private long commentId;
 
 	@NotNull
-	private String name;
+	private String nickName;
 
 	@NotNull
 	private String content;
@@ -44,12 +44,12 @@ public class Comment extends Auditable {
 	@Builder
 	public Comment(long commentId, String nickName, String content) {
 		this.commentId = commentId;
-		this.name = nickName;
+		this.nickName = nickName;
 		this.content = content;
 	}
 
-	public void changeName(String name) {
-		this.name = name;
+	public void changeNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public void changeContent(String content) {
