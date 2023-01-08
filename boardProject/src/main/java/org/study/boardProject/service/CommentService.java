@@ -19,10 +19,10 @@ public class CommentService {
 	}
 
 	/* 댓글 등록 */
-	public Comment postComment(Comment comment, long boardId){
+	public Comment create(Comment comment){
 
 		/* 존재하는 게시물인지 확인 */
-		Board board = boardService.findBoard(boardId);
+		Board board = boardService.findBoard(comment.getBoard().getBoardId());
 
 		/* 댓글 등록 */
 		commentRepository.save(comment);
@@ -31,7 +31,7 @@ public class CommentService {
 	}
 
 	/* 댓글 수정 */
-	public Comment patchComment(Comment comment){
+	public Comment update(Comment comment){
 
 		/* 댓글이 존재하는지 확인 */
 		Comment findComment = findVerifiedComment(comment.getCommentId());
@@ -50,7 +50,7 @@ public class CommentService {
 	}
 
 	/* 댓글 삭제 */
-	public String deleteComment(long commentId){
+	public String delete(long commentId){
 		Comment comment = findVerifiedComment(commentId);
 
 		commentRepository.delete(comment);
