@@ -1,5 +1,6 @@
 package org.study.boardProject.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.study.boardProject.global.Auditable;
-
-import com.sun.istack.NotNull;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -24,10 +23,10 @@ public class Comment extends Auditable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long commentId;
 
-	@NotNull
+	@Column(nullable = false)
 	private String nickName;
 
-	@NotNull
+	@Column(nullable = false)
 	private String content;
 
 	@ManyToOne
@@ -46,10 +45,6 @@ public class Comment extends Auditable {
 		this.commentId = commentId;
 		this.nickName = nickName;
 		this.content = content;
-	}
-
-	public void changeNickName(String nickName) {
-		this.nickName = nickName;
 	}
 
 	public void changeContent(String content) {

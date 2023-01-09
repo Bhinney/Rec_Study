@@ -43,7 +43,7 @@ public class CommentService {
 		checkBoardId(boardId, findComment.getBoard().getBoardId());
 
 		/* 댓글 수정 */
-		Optional.ofNullable(comment.getContent()).ifPresent(content -> findComment.changeContent(content));
+		Optional.ofNullable(comment.getContent()).ifPresent(findComment::changeContent);
 		commentRepository.save(findComment);
 
 		return findComment;

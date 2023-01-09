@@ -32,15 +32,9 @@ public interface CommentMapper {
 			return null;
 		}
 
-		long commentId = 0L;
-		String nickName = null;
-		String content = null;
-
-		commentId = comment.getCommentId();
-		nickName = comment.getNickName();
-		content = comment.getContent();
-
-		CommentDto.Response response = new CommentDto.Response( boardId, commentId, nickName, content );
+		CommentDto.Response response =
+			new CommentDto.Response( boardId, comment.getCommentId(), comment.getNickName(),
+				comment.getContent() , comment.getCreatedAt(), comment.getModifiedAt());
 
 		return response;
 	}

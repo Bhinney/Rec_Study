@@ -1,5 +1,7 @@
 package org.study.boardProject.dto;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,5 +34,7 @@ public class CommentDto {
 		private long commentId;
 		private String nickName;
 		private String content;
+		private LocalDate createdAt;
+		private LocalDate modifiedAt;
 	}
 }
