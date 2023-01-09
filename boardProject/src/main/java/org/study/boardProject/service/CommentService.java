@@ -22,12 +22,13 @@ public class CommentService {
 	}
 
 	/* 댓글 등록 */
-	public Comment create(Comment comment){
+	public Comment create(Comment comment, long boardId){
 
 		/* 존재하는 게시물인지 확인 */
-		Board board = boardService.findBoard(comment.getBoard().getBoardId());
+		Board board = boardService.findBoard(boardId);
 
 		/* 댓글 등록 */
+		comment.setBoard(board);
 		commentRepository.save(comment);
 
 		return comment;
@@ -35,11 +36,11 @@ public class CommentService {
 
 	/* 댓글 수정 */
 	public Comment update(Comment comment, long commentId, long boardId){
-		/* 게시판 정보가 일치하는지 확인 */
-		checkBoardId(boardId, comment.getBoard().getBoardId());
-
 		/* 댓글이 존재하는지 확인 */
 		Comment findComment = findVerifiedComment(commentId);
+
+		/* 게시판 정보가 일치하는지 확인 */
+		checkBoardId(boardId, findComment.getBoard().getBoardId());
 
 		/* 댓글 수정 */
 		Optional.ofNullable(comment.getContent()).ifPresent(content -> findComment.changeContent(content));

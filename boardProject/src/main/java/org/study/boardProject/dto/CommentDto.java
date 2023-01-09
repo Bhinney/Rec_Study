@@ -1,5 +1,8 @@
 package org.study.boardProject.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,9 +16,13 @@ public class CommentDto {
 	}
 
 	@Getter
-	@AllArgsConstructor
 	public static class Patch {
 		private String content;
+
+		@JsonCreator
+		public Patch(@JsonProperty("content") String content) {
+			this.content = content;
+		}
 	}
 
 	@Getter
