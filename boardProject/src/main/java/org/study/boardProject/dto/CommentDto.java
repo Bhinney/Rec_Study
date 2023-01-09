@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 public class CommentDto {
 
@@ -29,6 +30,7 @@ public class CommentDto {
 
 	@Getter
 	@AllArgsConstructor
+	@NoArgsConstructor
 	public static class Response {
 		private long boardId;
 		private long commentId;

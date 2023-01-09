@@ -51,10 +51,13 @@ public class CommentController {
 	/* 댓글 조회 */
 	@GetMapping
 	public ResponseEntity<List<CommentDto.Response>> getCommentList(@PathVariable long boardId, @RequestParam int page, @RequestParam int size){
-		Page<Comment> commentPage = commentService.getCommentList(boardId, page - 1, size);
-		List<Comment> commentList = commentPage.getContent();
+		// Page<Comment> commentPage = commentService.getCommentList(boardId, page - 1, size);
+		// List<Comment> commentList = commentPage.getContent();
 
-		return ResponseEntity.ok(mapper.commentToCommentResponseDto(commentList, boardId));
+		Page<CommentDto.Response> result = commentService.getCommentPage(boardId, page - 1, size);
+		List<CommentDto.Response> list = result.getContent();
+
+		return ResponseEntity.ok(list);
 	}
 
 	/* 댓글 삭제 */
