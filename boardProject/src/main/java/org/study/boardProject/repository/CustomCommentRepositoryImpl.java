@@ -1,17 +1,17 @@
 package org.study.boardProject.repository;
 
 import static org.study.boardProject.entity.QComment.*;
-import static org.study.boardProject.entity.QBoard.board;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.study.boardProject.dto.CommentDto;
 import org.study.boardProject.entity.Comment;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class CustomCommentRepositoryImpl implements CustomCommentRepository {
@@ -26,7 +26,7 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
 
 		List<CommentDto.Response> result = queryFactory
 			.select(Projections.fields(CommentDto.Response.class,
-				comment.board.boardId.as("boardId"),
+				comment.board.boardId,
 				comment.commentId,
 				comment.nickName,
 				comment.content,
@@ -39,6 +39,9 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		return new PageImpl<>(result);
+		JPAQuery<Comment> total = queryFactory.selectFrom(comment)
+			.where(comment.board.boardId.eq(boardId));
+
+		return PageableExecutionUtils.getPage(result, pageable, () -> total.fetch().size());
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.study.boardProject.dto.CommentDto;
 import org.study.boardProject.entity.Comment;
+import org.study.boardProject.global.response.MultiResponseDto;
 import org.study.boardProject.mapper.CommentMapper;
 import org.study.boardProject.service.CommentService;
 
@@ -36,7 +37,7 @@ public class CommentController {
 	public ResponseEntity<CommentDto.Response> postComment(@PathVariable long boardId, @RequestBody CommentDto.Post requestBody){
 		Comment comment = commentService.create(mapper.postCommentDtoToComment(requestBody), boardId);
 
-		return new ResponseEntity<>(mapper.commentToCommentResponseDto(comment, boardId), HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.commentToCommentResponseDto(comment, boardId));
 	}
 
 	/* 댓글 수정 */
@@ -50,14 +51,12 @@ public class CommentController {
 
 	/* 댓글 조회 */
 	@GetMapping
-	public ResponseEntity<List<CommentDto.Response>> getCommentList(@PathVariable long boardId, @RequestParam int page, @RequestParam int size){
-		// Page<Comment> commentPage = commentService.getCommentList(boardId, page - 1, size);
-		// List<Comment> commentList = commentPage.getContent();
+	public ResponseEntity<MultiResponseDto<CommentDto.Response>> getCommentList(@PathVariable long boardId, @RequestParam int page, @RequestParam int size){
 
-		Page<CommentDto.Response> result = commentService.getCommentPage(boardId, page - 1, size);
-		List<CommentDto.Response> list = result.getContent();
+		Page<CommentDto.Response> commentPage = commentService.getCommentPage(boardId, page - 1, size);
+		List<CommentDto.Response> commentList = commentPage.getContent();
 
-		return ResponseEntity.ok(list);
+		return ResponseEntity.ok(new MultiResponseDto<>(commentList, commentPage));
 	}
 
 	/* 댓글 삭제 */
