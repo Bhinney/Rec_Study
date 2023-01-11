@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -40,9 +41,10 @@ public class CommentDto {
 		private LocalDate createdAt;
 		private LocalDate modifiedAt;
 
-		public Response() {}
+		protected Response() {}
 
 		@Builder
+		@QueryProjection
 		public Response(long boardId, long commentId, String nickName, String content, LocalDate createdAt,
 			LocalDate modifiedAt) {
 			this.boardId = boardId;
