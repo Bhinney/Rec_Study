@@ -10,12 +10,14 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.study.boardProject.global.exception.custom.BusinessLogicException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionAdvice {
+
 	/* DTO 클래스의 유효성 검증에서 발생하는 예외 */
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -35,12 +37,12 @@ public class GlobalExceptionAdvice {
 	}
 
 	/* BusinessLogin Exception */
-	// @ExceptionHandler
-	// public ResponseEntity handleBusinessLogicException(BusinessLogicException exception) {
-	// 	final ErrorResponse response = ErrorResponse.of(exception.getExceptionCode());
-	//
-	// 	return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
-	// }
+	@ExceptionHandler
+	public ResponseEntity handleBusinessLogicException(BusinessLogicException exception) {
+		final ErrorResponse response = ErrorResponse.of(exception.getExceptionCode());
+
+		return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+	}
 
 	/* Http Method Exception */
 	@ExceptionHandler

@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolation;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import org.study.boardProject.global.exception.custom.ExceptionCode;
 
 import lombok.Getter;
 
@@ -36,10 +37,10 @@ public class ErrorResponse {
 		return new ErrorResponse(null, ConstraintViolationError.of(violations));
 	}
 
-	// public static ErrorResponse of(ExceptionCode exceptionCode) {
-	//
-	// 	return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
-	// }
+	public static ErrorResponse of(ExceptionCode exceptionCode) {
+
+		return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
+	}
 
 	public static ErrorResponse of(HttpStatus httpStatus) {
 
