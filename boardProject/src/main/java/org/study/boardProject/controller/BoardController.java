@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.study.boardProject.dto.BoardDto;
 import org.study.boardProject.entity.Board;
+import org.study.boardProject.global.response.MultiResponseDto;
 import org.study.boardProject.mapper.BoardMapper;
 import org.study.boardProject.service.BoardService;
 
@@ -61,11 +62,15 @@ public class BoardController {
 
 	/* 전체 게시판 조회 */
 	@GetMapping
-	public ResponseEntity<List<BoardDto.Response>> getBoardList(@RequestParam int page, @RequestParam int size) {
-		Page<Board> boardPage = boardService.findBoardList(page - 1, size);
-		List<Board> boardList = boardPage.getContent();
+	public ResponseEntity<MultiResponseDto<BoardDto.Response>> getBoardList(@RequestParam int page, @RequestParam int size) {
+		// Page<Board> boardPage = boardService.findBoardList(page - 1, size);
+		// List<Board> boardList = boardPage.getContent();
+		// List<BoardDto.Response> responses = mapper.boardToBoardResponseDto(boardList);
 
-		return ResponseEntity.ok(mapper.boardToBoardResponseDto(boardList));
+		Page<BoardDto.Response> boardPage = boardService.getBoardPage(page - 1, size);
+		List<BoardDto.Response> boardList = boardPage.getContent();
+
+		return ResponseEntity.ok(new MultiResponseDto<>(boardList, boardPage));
 	}
 
 	/* 게시판 삭제 */

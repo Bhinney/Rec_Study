@@ -27,8 +27,6 @@ public class BoardDto {
 	}
 
 	@Getter
-	@Builder
-	@AllArgsConstructor /* 테스트를 위해 추가 */
 	public static class Response {
 		private long boardId;
 		private String nickName;
@@ -36,5 +34,18 @@ public class BoardDto {
 		private String content;
 		private LocalDate createdAt;
 		private LocalDate modifiedAt;
+
+		public Response() {}
+
+		@Builder
+		public Response(long boardId, String nickName, String title, String content, LocalDate createdAt,
+			LocalDate modifiedAt) {
+			this.boardId = boardId;
+			this.nickName = nickName;
+			this.title = title;
+			this.content = content;
+			this.createdAt = createdAt;
+			this.modifiedAt = modifiedAt;
+		}
 	}
 }
