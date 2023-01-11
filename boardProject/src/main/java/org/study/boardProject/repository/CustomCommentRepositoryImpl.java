@@ -8,10 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.study.boardProject.dto.CommentDto;
-import org.study.boardProject.entity.Comment;
+import org.study.boardProject.dto.QCommentDto_Response;
 
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class CustomCommentRepositoryImpl implements CustomCommentRepository {
@@ -25,13 +23,14 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
 	public Page<CommentDto.Response> findComment(long boardId, Pageable pageable) {
 
 		List<CommentDto.Response> result = queryFactory
-			.select(Projections.fields(CommentDto.Response.class,
+			.select(new QCommentDto_Response(
 				comment.board.boardId,
 				comment.commentId,
 				comment.nickName,
 				comment.content,
 				comment.createdAt,
-				comment.modifiedAt))
+				comment.modifiedAt
+			))
 			.from(comment)
 			.where(comment.board.boardId.eq(boardId))
 			.orderBy(comment.commentId.desc())
@@ -39,9 +38,10 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		JPAQuery<Comment> total = queryFactory.selectFrom(comment)
-			.where(comment.board.boardId.eq(boardId));
+		long total = queryFactory.selectFrom(comment)
+			.where(comment.board.boardId.eq(boardId))
+			.fetch().size();
 
-		return PageableExecutionUtils.getPage(result, pageable, () -> total.fetch().size());
+		return PageableExecutionUtils.getPage(result, pageable, () -> total);
 	}
 }

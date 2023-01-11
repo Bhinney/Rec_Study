@@ -2,6 +2,8 @@ package org.study.boardProject.dto;
 
 import java.time.LocalDate;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,9 +37,10 @@ public class BoardDto {
 		private LocalDate createdAt;
 		private LocalDate modifiedAt;
 
-		public Response() {}
+		protected Response() {}
 
 		@Builder
+		@QueryProjection
 		public Response(long boardId, String nickName, String title, String content, LocalDate createdAt,
 			LocalDate modifiedAt) {
 			this.boardId = boardId;
