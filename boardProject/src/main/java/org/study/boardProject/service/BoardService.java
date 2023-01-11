@@ -6,10 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.study.boardProject.dto.BoardDto;
 import org.study.boardProject.entity.Board;
 import org.study.boardProject.repository.BoardRepository;
-
-import lombok.RequiredArgsConstructor;
 
 @Service
 public class BoardService {
@@ -50,6 +49,11 @@ public class BoardService {
 	/* 전체 게시판 조회 */
 	public Page<Board> findBoardList(int page, int size) {
 		return boardRepository.findAll(PageRequest.of(page, size, Sort.by("boardId").descending()));
+	}
+
+	public Page<BoardDto.Response> getBoardPage(int page, int size) {
+
+		return boardRepository.findBoard(PageRequest.of(page, size));
 	}
 
 	/* 게시판 삭제 */

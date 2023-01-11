@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.study.boardProject.dto.CommentDto;
 import org.study.boardProject.entity.Board;
 import org.study.boardProject.entity.Comment;
 import org.study.boardProject.repository.CommentRepository;
@@ -50,9 +50,9 @@ public class CommentService {
 	}
 
 	/* 댓글 조회 */
-	public Page<Comment> getCommentList(long boardId, int page, int size){
+	public Page<CommentDto.Response> getCommentPage(long boardId, int page, int size) {
 
-		return commentRepository.findByBoard_BoardId(boardId, PageRequest.of(page, size, Sort.by("commentId").descending()));
+		return commentRepository.findComment(boardId, PageRequest.of(page, size));
 	}
 
 	/* 댓글 삭제 */
