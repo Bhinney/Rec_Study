@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.study.boardProject.dto.CommentDto;
 import org.study.boardProject.entity.Board;
 import org.study.boardProject.entity.Comment;
+import org.study.boardProject.global.exception.custom.BusinessLogicException;
+import org.study.boardProject.global.exception.custom.ExceptionCode;
 import org.study.boardProject.repository.CommentRepository;
 
 @Service
@@ -71,7 +73,7 @@ public class CommentService {
 	/* 존재하는 댓글인지 확인 -> 뎃글 정보 리턴 */
 	private Comment findVerifiedComment(long commentId) {
 		Comment comment = commentRepository.findById(commentId)
-			.orElseThrow(() -> new RuntimeException("댓글이 존재하지 않습니다."));
+			.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
 
 		return comment;
 	}
@@ -79,7 +81,7 @@ public class CommentService {
 	/* boardId 와 comment.getBoard().getBoardId() 가 같은 지 확인*/
 	private void checkBoardId(long boardId, long commentBoardId) {
 		if (boardId != commentBoardId) {
-			throw new RuntimeException("게시판 정보가 댓글의 게시판 정보와 일치하지 않습니다.");
+			throw new BusinessLogicException(ExceptionCode.NOT_CORRECT_BOARDID);
 		}
 	}
 }

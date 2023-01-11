@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.study.boardProject.dto.BoardDto;
 import org.study.boardProject.entity.Board;
+import org.study.boardProject.global.exception.custom.BusinessLogicException;
+import org.study.boardProject.global.exception.custom.ExceptionCode;
 import org.study.boardProject.repository.BoardRepository;
 
 @Service
@@ -68,7 +70,7 @@ public class BoardService {
 	/* 존재하는 게시판인지 확인 -> 존재하면 게시판 리턴 */
 	private Board findVerifiedBoard(long boardId) {
 		Board board = boardRepository.findById(boardId)
-			.orElseThrow(() -> new RuntimeException("게시판이 존재하지 않습니다."));
+			.orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
 
 		return board;
 	}
