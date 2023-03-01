@@ -35,9 +35,10 @@ public class CommentController {
 	/* 댓글 등록 */
 	@PostMapping
 	public ResponseEntity<CommentDto.Response> postComment(@PathVariable long boardId, @RequestBody CommentDto.Post requestBody){
-		Comment comment = commentService.create(mapper.postCommentDtoToComment(requestBody), boardId);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.commentToCommentResponseDto(comment, boardId));
+		Comment comment = commentService.create(mapper.postCommentDtoToComment(requestBody), boardId, requestBody.getParentId());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.commentToCommentResponseDto(comment,requestBody.getParentId(), boardId));
 	}
 
 	/* 댓글 수정 */
@@ -46,17 +47,23 @@ public class CommentController {
 		@RequestBody CommentDto.Patch requestBody){
 		Comment comment = commentService.update(mapper.patchCommentDtoToComment(requestBody), commentId, boardId);
 
-		return ResponseEntity.ok(mapper.commentToCommentResponseDto(comment, boardId));
+		return ResponseEntity.ok(mapper.commentToCommentResponseDto(comment, comment.getParent().getCommentId(), boardId));
 	}
 
 	/* 댓글 조회 */
 	@GetMapping
-	public ResponseEntity<MultiResponseDto<CommentDto.Response>> getCommentList(@PathVariable long boardId, @RequestParam int page, @RequestParam int size){
+	public ResponseEntity<?> getCommentList(@PathVariable long boardId, @RequestParam int page, @RequestParam int size){
 
-		Page<CommentDto.Response> commentPage = commentService.getCommentPage(boardId, page - 1, size);
+		Page<CommentDto.Response> commentPage = commentService.getBoardCommentPage(boardId, page - 1, size);
 		List<CommentDto.Response> commentList = commentPage.getContent();
 
 		return ResponseEntity.ok(new MultiResponseDto<>(commentList, commentPage));
+	}
+
+	/* 특정 댓글 조회 */
+	@GetMapping("/{commentId}")
+	public ResponseEntity<CommentDto.Response> getComment(@PathVariable long commentId) {
+		return null;
 	}
 
 	/* 댓글 삭제 */

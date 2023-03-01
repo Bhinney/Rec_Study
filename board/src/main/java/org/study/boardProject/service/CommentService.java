@@ -24,10 +24,14 @@ public class CommentService {
 	}
 
 	/* 댓글 등록 */
-	public Comment create(Comment comment, long boardId){
+	public Comment create(Comment comment, long boardId, long parentId){
 
 		/* 존재하는 게시물인지 확인 */
 		Board board = boardService.findBoard(boardId);
+
+		if (parentId != 0) {
+			comment.setParent(findComment(parentId));
+		}
 
 		/* 댓글 등록 */
 		comment.setBoard(board);
@@ -51,10 +55,14 @@ public class CommentService {
 		return findComment;
 	}
 
-	/* 댓글 조회 */
-	public Page<CommentDto.Response> getCommentPage(long boardId, int page, int size) {
+	public Comment findComment(long commetId) {
+		return findVerifiedComment(commetId);
+	}
 
-		return commentRepository.findComment(boardId, PageRequest.of(page, size));
+	/* 댓글 조회 */
+	public Page<CommentDto.Response> getBoardCommentPage(long boardId, int page, int size) {
+
+		return commentRepository.findBoardComments(boardId, PageRequest.of(page, size));
 	}
 
 	/* 댓글 삭제 */

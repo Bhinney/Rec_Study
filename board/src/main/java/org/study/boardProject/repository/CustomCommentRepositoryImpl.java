@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.study.boardProject.dto.CommentDto;
-import org.study.boardProject.dto.QCommentDto_Response;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class CustomCommentRepositoryImpl implements CustomCommentRepository {
@@ -20,28 +20,27 @@ public class CustomCommentRepositoryImpl implements CustomCommentRepository {
 	}
 
 	@Override
-	public Page<CommentDto.Response> findComment(long boardId, Pageable pageable) {
+	public Page<CommentDto.Response> findBoardComments(long boardId, Pageable pageable) {
 
+		/* 게시판 댓글 정보 가져오기 */
 		List<CommentDto.Response> result = queryFactory
-			.select(new QCommentDto_Response(
+			.select(Projections.fields(CommentDto.Response.class,
 				comment.board.boardId,
 				comment.commentId,
+				comment.parent.commentId,
 				comment.nickName,
 				comment.content,
+				comment.ref,
 				comment.createdAt,
 				comment.modifiedAt
 			))
 			.from(comment)
-			.where(comment.board.boardId.eq(boardId))
+			.where(comment.board.boardId.eq(boardId).and(comment.parent.isNull()))
 			.orderBy(comment.commentId.desc())
 			.offset(pageable.getOffset())
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		long total = queryFactory.selectFrom(comment)
-			.where(comment.board.boardId.eq(boardId))
-			.fetch().size();
-
-		return PageableExecutionUtils.getPage(result, pageable, () -> total);
+		return PageableExecutionUtils.getPage(result, pageable, result::size);
 	}
 }
