@@ -6,5 +6,5 @@ import org.study.boardProject.dto.CommentDto;
 import org.study.boardProject.entity.Comment;
 
 public interface CustomCommentRepository {
-	Page<CommentDto.Response> findComment(long boardId, Pageable pageable);
+	Page<CommentDto.Response> findBoardComments(long boardId, Pageable pageable);
 }
