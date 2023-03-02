@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import chat.entity.ChatRoom;
-import chat.service.ChatService;
+import chat.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/chat")
 public class ChatRoomController {
-	private final ChatService chatService;
+
+	private final ChatRepository chatRepository;
 
 	/* 채팅 리스트 화면 */
 	@GetMapping("/room")
@@ -31,14 +32,14 @@ public class ChatRoomController {
 	@GetMapping("/rooms")
 	@ResponseBody
 	public List<ChatRoom> room() {
-		return chatService.findAllRoom();
+		return chatRepository.findAllRoom();
 	}
 
 	/* 채팅방 생성 */
 	@PostMapping("/room")
 	@ResponseBody
 	public ChatRoom createRoom(@RequestParam String name) {
-		return chatService.createRoom(name);
+		return chatRepository.createChatRoom(name);
 	}
 
 	/* 채팅방 입장 화면 */
@@ -52,6 +53,6 @@ public class ChatRoomController {
 	@GetMapping("/room/{roomId}")
 	@ResponseBody
 	public ChatRoom roomInfo(@PathVariable String roomId) {
-		return chatService.findById(roomId);
+		return chatRepository.findRoomById(roomId);
 	}
 }

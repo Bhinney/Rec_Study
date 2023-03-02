@@ -5,12 +5,14 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RestController;
 
 import chat.entity.ChatMessage;
+import chat.service.RedisPublisher;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class MessageController {
 
+	private final RedisPublisher redisPublisher;
 	private final SimpMessageSendingOperations sendingOperations;
 
 	@MessageMapping("/chat/message")
